@@ -71,13 +71,14 @@ ClassDeclPrime:
 
 ClassDecl:
     CLASS; id = ID; OPBRACE; vList = VarDeclPrime; mList = MethodDeclPrime; CLBRACE
-    { Ast.{ classname = id; vars = vList; methods = mList; is_subclass = false; superclass_name = "" } }
+    { let vList = List.rev vList in 
+      Ast.{ classname = id; vars = vList; methods = mList; is_subclass = false; superclass_name = "" } }
   | CLASS; id1 = ID; EXTENDS; id2 = ID; OPBRACE; vList = VarDeclPrime; mList = MethodDeclPrime; CLBRACE
     { Ast.{ classname = id1; vars = vList; methods = mList; is_subclass = true; superclass_name = id2 } }
 ;
 
 VarDeclPrime:
-    v1 = VarDecl; vList = VarDeclPrime 
+    vList = VarDeclPrime; v1 = VarDecl /* For some reason, making this left-recursive fixes the ASSIGN bug */
       { v1 :: vList }
   | 
       { [] }
@@ -97,7 +98,8 @@ MethodDeclPrime:
 
 MethodDecl: 
     PUBLIC; t1 = Type; id = ID; LPAREN; fList = FormalList; RPAREN OPBRACE; vList = VarDeclPrime; sList = StatementPrime; RETURN; e1 = Exp; SEMI CLBRACE
-    { Ast.{ returntype = t1; methodname = id; args = fList; vars = vList; stmts = sList; returnexpr = e1 } }
+    { let vList = List.rev vList in
+      Ast.{ returntype = t1; methodname = id; args = fList; vars = vList; stmts = sList; returnexpr = e1 } }
 ;
 
 FormalList:
