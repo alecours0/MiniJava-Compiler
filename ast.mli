@@ -129,4 +129,17 @@ type program =
   classes : (classdecl list);
 };;
 
-val test_const : const -> bool
+type method_info = 
+{
+  method_name : string;
+  method_args : (var list);
+  method_return_type : typ;
+  method_locals : (var list)
+}
+and customtype = 
+{
+  name : string;
+  var_data : (var list);
+  method_data : (method_info list);
+  superclass : string option
+};;

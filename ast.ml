@@ -129,8 +129,17 @@ type program =
   classes : (classdecl list);
 };;
 
-let rec test_const t = 
-  match t with
-    | IntConst _ -> true
-    | BoolConst _ -> false
-
+type method_info = 
+{
+  method_name : string;
+  method_args : (var list);
+  method_return_type : typ;
+  method_locals : (var list)
+}
+and customtype = 
+{
+  name : string;
+  var_data : (var list);
+  method_data : (method_info list);
+  superclass : string option
+};;

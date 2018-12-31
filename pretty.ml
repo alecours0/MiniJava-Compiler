@@ -79,10 +79,10 @@ let rec print_list_methoddecl mList =
   | m1 :: mRest -> (print_methoddecl m1) ^ "\n" ^ (print_list_methoddecl mRest)
   | [] -> ""  
 and print_methoddecl mDecl = 
-  "public " ^ (print_type mDecl.returntype) ^ mDecl.methodname ^ "(" ^ 
+  "public " ^ (print_type mDecl.returntype) ^ " " ^ mDecl.methodname ^ "(" ^ 
   (print_list_formal mDecl.args) ^ ")\n{\n" ^
   (print_list_vardecl mDecl.vars) ^ (print_list_statement mDecl.stmts) ^
-  "return " ^ (print_expr mDecl.returnexpr) ^ "\n;"
+  "return " ^ (print_expr mDecl.returnexpr) ^ ";\n}\n"
   ;;
 
 let rec print_list_classdecl cList =
@@ -95,7 +95,7 @@ and print_classdecl cDecl =
       then (cDecl.superclass_name ^ " extends") 
       else "" in
   "class " ^ cDecl.classname ^ superclass ^
-  "\n{" ^ (print_list_vardecl cDecl.vars) ^
+  "\n{\n" ^ (print_list_vardecl cDecl.vars) ^
   (print_list_methoddecl cDecl.methods) ^ "\n}\n"
   ;;
 

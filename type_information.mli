@@ -1,0 +1,1 @@
+val collect_type_info : Ast.program -> (Ast.customtype list)
