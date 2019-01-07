@@ -44,17 +44,17 @@ and unop =
 and binop =
 {
   op : binary_operation;
-  lhs : expr;
-  rhs : expr
+  binop_lhs : expr;
+  binop_rhs : expr
 }
 and array_lookup =
 {
-  array : expr;
-  index : expr
+  alup_array : expr;
+  alup_index : expr
 }
 and array_length =
 {
-  array : expr
+  alen_array : expr
 }
 and object_function_call =
 {
