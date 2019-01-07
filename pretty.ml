@@ -36,7 +36,7 @@ and print_expr t =
                   | Not -> "!"
                   | _ -> assert false) ^
                 print_expr uop.exp
-  | Binop bop -> (print_expr bop.lhs) ^ " " ^  
+  | Binop bop -> (print_expr bop.binop_lhs) ^ " " ^  
                  (match bop.op with
                        | Add -> "+"
                        | Subtract -> "-"
@@ -44,9 +44,9 @@ and print_expr t =
                        | And -> "&&"
                        | LT -> "<"
                        | _ -> assert false) ^
-                  " " ^ (print_expr bop.rhs)
-  | ArrayLookup alup -> (print_expr alup.array) ^ "[" ^ (print_expr alup.index) ^ "]"
-  | ArrayLength alen -> print_expr alen.array
+                  " " ^ (print_expr bop.binop_rhs)
+  | ArrayLookup alup -> (print_expr alup.alup_array) ^ "[" ^ (print_expr alup.alup_index) ^ "]"
+  | ArrayLength alen -> print_expr alen.alen_array
   | ObjectFunctionCall ofc -> (print_expr ofc.obj) ^ "." ^ ofc.name ^ 
       "(" ^ (print_list_expr ofc.args) ^ ")"
   | Const c -> print_const c

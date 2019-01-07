@@ -156,19 +156,19 @@ Statement:
 
 Exp:
     e1 = Exp; AND; e2 = Exp
-    { Ast.Binop { lhs = e1; rhs = e2; op = Ast.And } }
+    { Ast.Binop { binop_lhs = e1; binop_rhs = e2; op = Ast.And } }
   | e1 = Exp; LT; e2 = Exp
-    { Ast.Binop { lhs = e1; rhs = e2; op = Ast.LT } }
+    { Ast.Binop { binop_lhs = e1; binop_rhs = e2; op = Ast.LT } }
   | e1 = Exp; PLUS; e2 = Exp 
-    { Ast.Binop { lhs = e1; rhs = e2; op = Ast.Add } }
+    { Ast.Binop { binop_lhs = e1; binop_rhs = e2; op = Ast.Add } }
   | e1 = Exp; MINUS; e2 = Exp
-    { Ast.Binop { lhs = e1; rhs = e2; op = Ast.Subtract } }
+    { Ast.Binop { binop_lhs = e1; binop_rhs = e2; op = Ast.Subtract } }
   | e1 = Exp; TIMES; e2 = Exp
-    { Ast.Binop { lhs = e1; rhs = e2; op = Ast.Multiply } }
+    { Ast.Binop { binop_lhs = e1; binop_rhs = e2; op = Ast.Multiply } }
   | e1 = Exp; LBRACK; e2 = Exp; RBRACK
-    { Ast.ArrayLookup { array = e1; index = e2 } }
+    { Ast.ArrayLookup { alup_array = e1; alup_index = e2 } }
   | e1 = Exp; DOT LENGTH
-    { Ast.ArrayLength { array = e1} }
+    { Ast.ArrayLength { alen_array = e1} }
   | e1 = Exp; DOT; id = ID; LPAREN; eList = ExpList; RPAREN
     {  Ast.ObjectFunctionCall { obj = e1; name = id; args = eList } }
   | v = INTEGER

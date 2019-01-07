@@ -26,8 +26,10 @@ let () =
   let code_lines = read_file Sys.argv.(1) in
   let code = String.concat "" code_lines in
   let lexbuf = Lexing.from_string code in
-  let program = Minijavaparser.main Minijavalexer.token lexbuf in
-  Pretty.print_ast program
-  (* with Lexer.Eof ->
-     ()
-  ast_print program;;*)
+  let prog = Minijavaparser.main Minijavalexer.token lexbuf in
+  let type_info = Type_information.collect_type_info prog in
+  let error_found = Typecheck.analyze prog type_info in
+  if error_found then print_string "valid program" else print_string "invalid program"
+  
+  (* Pretty.print_ast prog *)
+  
